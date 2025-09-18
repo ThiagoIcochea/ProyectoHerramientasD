@@ -32,7 +32,9 @@ body {
 }
 
 /* Tipografía */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 1rem;
@@ -75,11 +77,18 @@ header {
 }
 
 @keyframes slideDown {
-  from { transform: translateY(-100%); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
-header > * {
+header>* {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
@@ -140,10 +149,12 @@ nav a:hover {
 }
 
 @keyframes rotate {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-#hero > * {
+#hero>* {
   max-width: 800px;
   margin: 0 auto;
 }
@@ -184,8 +195,15 @@ nav a:hover {
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Secciones */
@@ -357,6 +375,10 @@ article a:hover {
 }
 
 #beneficios li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-align: left;
   background: white;
   padding: 2rem;
   border-radius: var(--radius);
@@ -368,6 +390,14 @@ article a:hover {
 #beneficios li:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 30px rgba(37, 244, 238, 0.2);
+}
+
+#beneficios li .icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: block;
+  stroke-width: 1.5;
 }
 
 /* Instructor */
@@ -440,6 +470,29 @@ article a:hover {
   text-align: center;
   margin-bottom: 2rem;
 }
+
+#contacto .form-subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+#contacto .checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  color: white;
+  font-size: 0.95rem;
+}
+
+#contacto .checkbox input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
 
 form {
   max-width: 600px;
@@ -517,24 +570,24 @@ footer a {
   section:not(#hero) {
     padding: 3rem 1rem;
   }
-  
+
   #hero {
     padding: 4rem 1rem;
   }
-  
+
   .cursos-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   article {
     padding: 1.5rem;
   }
-  
+
   #beneficios ul {
     grid-template-columns: 1fr;
   }
-  
+
   nav a {
     display: block;
     margin: 0.25rem 0;
@@ -546,16 +599,16 @@ footer a {
   html {
     scroll-behavior: smooth;
   }
-  
+
   section {
     opacity: 0;
     animation: fadeInSection 0.6s ease-out forwards;
   }
-  
+
   section:nth-child(even) {
     animation-delay: 0.1s;
   }
-  
+
   section:nth-child(odd) {
     animation-delay: 0.2s;
   }
@@ -566,6 +619,7 @@ footer a {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -593,5 +647,7 @@ footer a {
 }
 
 @keyframes spin {
-  to { transform: translate(-50%, -50%) rotate(360deg); }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
