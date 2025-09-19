@@ -41,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     form.reset();
   });
 });
+<<<<<<< HEAD
 
 // --- Navbar dinámico ---
 document.addEventListener("DOMContentLoaded", () => {
@@ -77,3 +78,5 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+=======
+>>>>>>> feature/formulario-contacto

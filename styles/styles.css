@@ -125,7 +125,6 @@ nav a:hover {
   background: radial-gradient(ellipse at center, rgba(255, 0, 80, 0.05) 0%, transparent 70%);
   position: relative;
   overflow: hidden;
-
 }
 
 #hero::before {
@@ -362,6 +361,10 @@ article a:hover {
 }
 
 #beneficios li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-align: left;
   background: white;
   padding: 2rem;
   border-radius: var(--radius);
@@ -373,6 +376,14 @@ article a:hover {
 #beneficios li:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 30px rgba(37, 244, 238, 0.2);
+}
+
+#beneficios li .icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: block;
+  stroke-width: 1.5;
 }
 
 /* Instructor */
@@ -470,6 +481,28 @@ article a:hover {
   margin-bottom: 2rem;
 }
 
+#contacto .form-subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+#contacto .checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  color: white;
+  font-size: 0.95rem;
+}
+
+#contacto .checkbox input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
 form {
   max-width: 600px;
   margin: 0 auto;
@@ -551,7 +584,7 @@ footer a {
   #hero {
     padding: 4rem 1rem;
   }
-  
+
   .cursos-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -576,7 +609,8 @@ footer a {
   html {
     scroll-behavior: smooth;
   }
-  
+
+  feature/formulario-contacto
   section {
     opacity: 0;
     animation: fadeInSection 0.6s ease-out forwards;
@@ -585,7 +619,7 @@ footer a {
   section:nth-child(even) {
     animation-delay: 0.1s;
   }
-  
+
   section:nth-child(odd) {
     animation-delay: 0.2s;
   }
@@ -623,6 +657,7 @@ footer a {
 }
 
 @keyframes spin {
+<<<<<<< HEAD
   to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
@@ -647,6 +682,3 @@ header.nav-only {
 #cursos {
   padding: 4rem 2rem; 
 }
-
-
-
