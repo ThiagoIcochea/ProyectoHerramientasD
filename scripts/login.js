@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const validUsers = [
         { username: 'admin', password: 'admin123' },
         { username: 'usuario', password: 'password123' },
-        { username: 'tiktok', password: 'emprendedor2024' }
+        { username: 'tiktok', password: 'emprendedor2024' },
+        { username: 'dashboard', password: 'dashboard123' }
     ];
 
     function showNotification(message, type = 'info') {
@@ -107,7 +108,11 @@ document.addEventListener('DOMContentLoaded', function() {
             sessionStorage.setItem('isLoggedIn', 'true');
             
             setTimeout(() => {
-                window.location.href = '../hmtl/main.html';
+                if (username === 'dashboard') {
+                    window.location.href = '../hmtl/dashboard.html';
+                } else {
+                    window.location.href = '../hmtl/main.html';
+                }
             }, 1500);
             
             return true;

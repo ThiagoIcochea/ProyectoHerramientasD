@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("🚀 Iniciando TikTok Perú Academy JS...");
   
+  // Trackear visita al sitio web
+  trackSiteVisit();
+  
   try {
     initThemeToggle();
     console.log("✅ Theme toggle iniciado");
@@ -93,9 +96,9 @@ function initThemeToggle() {
     localStorage.setItem('theme', newTheme);
     
     if (newTheme === 'dark') {
-      showNotification("🌙 Modo nocturno activado - Como las noches en Cusco", "info");
+      showNotification("� Modo oscuro ON - Welcome to the dark side", "info");
     } else {
-      showNotification("☀️ Modo día activado - Como el sol de Arequipa", "info");
+      showNotification("🌞 Modo claro ON - Back to reality", "info");
     }
   });
 }
@@ -211,19 +214,19 @@ function initFormValidation() {
     const telefono = document.getElementById("telefono").value.trim();
 
     if (nombre === "" || email === "" || curso === "" || telefono === "") {
-      showNotification("Compatriota, completa todos los campos para continuar 🇵🇪", "error");
+      showNotification("🙄 Bruh, fill all the fields first", "error");
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      showNotification("Verifica tu email, necesitamos contactarte pronto", "error");
+      showNotification("😅 That email looks sus, try again", "error");
       return;
     }
 
     const phoneRegex = /^[\d\s\-\+\(\)]{8,}$/;
     if (!phoneRegex.test(telefono)) {
-      showNotification("Ingresa un teléfono válido para coordinar tu acceso", "error");
+      showNotification("📱 Phone number said 'nah bro'", "error");
       return;
     }
 
@@ -240,7 +243,7 @@ function initFormValidation() {
     inscripciones.push(datosFormulario);
     localStorage.setItem("inscripciones", JSON.stringify(inscripciones));
 
-    showNotification("🎉 ¡Bienvenido a la familia TikTok Perú! Te contactaremos en 24 horas", "success");
+    showNotification("😎 You're in! Check your DMs in 24h", "success");
     
     form.style.transition = 'all 0.5s ease';
     form.style.transform = 'scale(0.95)';
@@ -347,9 +350,9 @@ function initPeruAnimations() {
 function playTestimonial() {
   const thumbnail = document.querySelector('.video-thumbnail');
   const messages = [
-    "🎬 ¡Próximamente! Video testimonial de María desde Arequipa",
-    "📹 Estamos preparando testimonios increíbles de nuestros estudiantes",
-    "🎥 ¡Pronto verás historias reales de éxito desde todo el Perú!"
+    "🎬 Coming soon! Real testimonials (no cap)",
+    "📹 Video loading... Just kidding, it's coming",
+    "🎥 Testimonials are in the works, stay tuned!"
   ];
   
   const randomMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -396,7 +399,7 @@ document.addEventListener('keydown', (e) => {
   }
   
   if (konamiCode.join(',') === konamiSequence.join(',')) {
-    showNotification("🇵� ¡Código Inca activado! Eres un verdadero emprendedor peruano 🎉", "success");
+    showNotification("🔥 Konami code activated! You're a legend �", "success");
     
     document.body.style.animation = 'rainbow 3s linear';
     setTimeout(() => {
@@ -662,4 +665,37 @@ function animateCounter(element, finalValue) {
     
     element.textContent = displayValue;
   }, stepTime);
+}
+
+// ===== TRACKING DE VISITAS =====
+function trackSiteVisit() {
+  // Obtener visitas actuales
+  let totalVisits = localStorage.getItem('totalSiteVisits') || '0';
+  totalVisits = parseInt(totalVisits);
+  
+  // Verificar si es una nueva sesión (no contar recargas)
+  const lastVisit = sessionStorage.getItem('lastVisitTime');
+  const currentTime = new Date().getTime();
+  
+  if (!lastVisit || (currentTime - parseInt(lastVisit)) > 30000) { // 30 segundos entre visitas
+    totalVisits += 1;
+    localStorage.setItem('totalSiteVisits', totalVisits.toString());
+    sessionStorage.setItem('lastVisitTime', currentTime.toString());
+    
+    console.log(`🎯 Nueva visita registrada. Total: ${totalVisits}`);
+    
+    // Registrar información adicional de la visita
+    const visitData = {
+      timestamp: currentTime,
+      page: window.location.pathname,
+      userAgent: navigator.userAgent,
+      referrer: document.referrer || 'Direct'
+    };
+    
+    // Guardar últimas 10 visitas para analytics
+    let recentVisits = JSON.parse(localStorage.getItem('recentVisits') || '[]');
+    recentVisits.unshift(visitData);
+    recentVisits = recentVisits.slice(0, 10); // Mantener solo las últimas 10
+    localStorage.setItem('recentVisits', JSON.stringify(recentVisits));
+  }
 }
