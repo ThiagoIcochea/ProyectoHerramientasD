@@ -1,5 +1,35 @@
 // ===== DASHBOARD JAVASCRIPT =====
 
+function loadProspectos() {
+    fetch('../backend/listar_prospectos.php', {
+        method: 'GET'
+    })
+    .then(response => response.json())
+    .then(data => {
+        const tbody = document.querySelector('#prospectosTable tbody');
+        tbody.innerHTML = ''; // Limpiar tabla
+
+        data.forEach(prospecto => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${prospecto.id_prospecto}</td>
+                <td>${prospecto.nombre}</td>
+                <td>${prospecto.apellido}</td>
+                <td>${prospecto.correo}</td>
+                <td>${prospecto.celular}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    })
+    .catch(error => console.error('Error cargando prospectos:', error));
+}
+
+// Llamar al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+    loadProspectos();
+});
+
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 Dashboard cargado exitosamente');
     
@@ -12,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initSidebar();
     initVisitsCounter();
     initChart();
+    loadProspectos();
     
     // Actualizar datos cada 30 segundos
     setInterval(() => {
@@ -26,10 +57,10 @@ function checkAuthentication() {
     const isLoggedIn = sessionStorage.getItem('isLoggedIn');
     const currentUser = sessionStorage.getItem('currentUser');
     
-    if (!isLoggedIn || currentUser !== 'dashboard') {
+   /* if (!isLoggedIn || !currentUser) {
         window.location.href = '../hmtl/login.html';
         return;
-    }
+    }*/
     
     console.log('✅ Usuario autenticado como dashboard admin');
 }

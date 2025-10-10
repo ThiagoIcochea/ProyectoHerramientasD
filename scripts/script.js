@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("🚀 Iniciando TikTok Perú Academy JS...");
   
+
   // Trackear visita al sitio web
   trackSiteVisit();
   
@@ -209,11 +210,12 @@ function initFormValidation() {
     event.preventDefault();
 
     const nombre = document.getElementById("nombre").value.trim();
+    const apellido= document.getElementById("apellido").value.trim();
     const email = document.getElementById("email").value.trim();
     const curso = document.getElementById("curso").value;
     const telefono = document.getElementById("telefono").value.trim();
 
-    if (nombre === "" || email === "" || curso === "" || telefono === "") {
+    if (nombre === "" || apellido === "" || email === "" || curso === "" || telefono === "") {
       showNotification("🙄 Bruh, fill all the fields first", "error");
       return;
     }
@@ -232,16 +234,35 @@ function initFormValidation() {
 
     const datosFormulario = {
       nombre,
+      apellido,
       email,
       curso,
-      telefono,
-      fecha: new Date().toLocaleString(),
-      pais: "Perú"
+      telefono
     };
 
-    let inscripciones = JSON.parse(localStorage.getItem("inscripciones")) || [];
-    inscripciones.push(datosFormulario);
-    localStorage.setItem("inscripciones", JSON.stringify(inscripciones));
+
+ fetch("../backend/guardar_prospecto.php", {
+  method: "POST",
+  headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  body: new URLSearchParams({
+    id_prospecto: datosFormulario.curso,        
+    nombre: datosFormulario.nombre,
+    apellido: datosFormulario.apellido || "",
+    correo: datosFormulario.email,
+    celular: datosFormulario.telefono
+  })
+})
+.then(res => res.json())
+.then(data => {
+  if (data.success) {
+    showNotification("✅ Registro guardado en la base de datos", "success");
+  } else {
+    showNotification("❌ Error: " + data.message, "error");
+  }
+})
+.catch(err => console.error("Error de conexión:", err));
+
+  
 
     showNotification("😎 You're in! Check your DMs in 24h", "success");
     

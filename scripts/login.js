@@ -1,18 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form');
-    const usernameInput = document.querySelector('input[type="text"]');
+    const emailInput = document.querySelector('input[type="text"]');
     const passwordInput = document.querySelector('input[type="password"]');
     const rememberCheckbox = document.querySelector('input[type="checkbox"]');
     const loginBtn = document.querySelector('.btn');
     const forgotPasswordLink = document.querySelector('.remember-forgot a');
     const registerLink = document.querySelector('.register-link a');
-
-    const validUsers = [
-        { username: 'admin', password: 'admin123' },
-        { username: 'usuario', password: 'password123' },
-        { username: 'tiktok', password: 'emprendedor2024' },
-        { username: 'dashboard', password: 'dashboard123' }
-    ];
 
     function showNotification(message, type = 'info') {
         const notification = document.createElement('div');
@@ -52,83 +45,55 @@ document.addEventListener('DOMContentLoaded', function() {
         return emailRegex.test(email);
     }
 
-    function validateUsername(username) {
-        return username.length >= 3 && /^[a-zA-Z0-9_]+$/.test(username);
-    }
-
     function validatePassword(password) {
         return password.length >= 6;
     }
 
-    function addInputValidation() {
-        [usernameInput, passwordInput].forEach(input => {
-            input.addEventListener('input', function() {
-                this.classList.remove('error', 'success');
-                
-                if (this.value.length > 0) {
-                    const isValid = this.type === 'text' ? 
-                        validateUsername(this.value) : 
-                        validatePassword(this.value);
-                    
-                    this.classList.add(isValid ? 'success' : 'error');
-                }
-            });
+    async function fetchAdministradores() {
+        try {
+            const response = await fetch("http://localhost/ProyectoHerramientasBackend/ProyectoHerramientasD/backend/obtener_administradores.php");
+            const data = await response.json();
 
-            input.addEventListener('focus', function() {
-                this.parentElement.classList.add('focused');
-            });
-
-            input.addEventListener('blur', function() {
-                if (this.value === '') {
-                    this.parentElement.classList.remove('focused');
-                }
-            });
-        });
-    }
-
-    function animateButton() {
-        loginBtn.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-            loginBtn.style.transform = 'scale(1)';
-        }, 150);
-    }
-
-    function handleLogin(username, password, remember) {
-        const user = validUsers.find(u => u.username === username && u.password === password);
-        
-        if (user) {
-            showNotification('¡Login exitoso! Redirigiendo...', 'success');
-            
-            if (remember) {
-                localStorage.setItem('rememberedUser', username);
-                localStorage.setItem('loginTime', new Date().getTime());
+            if (data.status === "success") {
+                return data.data;
+            } else {
+                console.error("⚠️ No se encontraron administradores:", data.message);
+                return [];
             }
-            
-            sessionStorage.setItem('currentUser', username);
-            sessionStorage.setItem('isLoggedIn', 'true');
-            
-            setTimeout(() => {
-                if (username === 'dashboard') {
-                    window.location.href = '../hmtl/dashboard.html';
-                } else {
-                    window.location.href = '../hmtl/main.html';
+        } catch (error) {
+            console.error("❌ Error al conectar con el backend:", error);
+            return [];
+        }
+    }
+
+    async function handleLogin(email, password, remember) {
+        const administradores = await fetchAdministradores();
+
+        
+        const user = administradores.find(u => u.email_admin === email);
+
+        if (user) {
+            if (password === user.password) {
+                showNotification('✅ ¡Login exitoso! Redirigiendo...', 'success');
+
+                if (remember) {
+                    localStorage.setItem('rememberedUser', email);
+                    localStorage.setItem('loginTime', new Date().getTime());
                 }
-            }, 1500);
-            
-            return true;
+
+                sessionStorage.setItem('currentUser', user.email_admin);
+                sessionStorage.setItem('isLoggedIn', 'true');
+
+                setTimeout(() => {
+                    window.location.href = '../hmtl/dashboard.html';
+                }, 1500);
+                return true;
+            } else {
+                showNotification('❌ Contraseña incorrecta', 'error');
+                return false;
+            }
         } else {
-            showNotification('Usuario o contraseña incorrectos', 'error');
-            passwordInput.value = '';
-            passwordInput.focus();
-            
-            usernameInput.classList.add('error');
-            passwordInput.classList.add('error');
-            
-            setTimeout(() => {
-                usernameInput.classList.remove('error');
-                passwordInput.classList.remove('error');
-            }, 3000);
-            
+            showNotification('⚠️ Usuario no encontrado', 'error');
             return false;
         }
     }
@@ -141,9 +106,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const daysSinceLogin = (new Date().getTime() - parseInt(loginTime)) / (1000 * 60 * 60 * 24);
             
             if (daysSinceLogin <= 30) {
-                usernameInput.value = rememberedUser;
+                emailInput.value = rememberedUser;
                 rememberCheckbox.checked = true;
-                usernameInput.parentElement.classList.add('focused');
+                emailInput.parentElement.classList.add('focused');
                 passwordInput.focus();
             } else {
                 localStorage.removeItem('rememberedUser');
@@ -156,20 +121,21 @@ document.addEventListener('DOMContentLoaded', function() {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            animateButton();
-            
-            const username = usernameInput.value.trim();
+            loginBtn.style.transform = 'scale(0.95)';
+            setTimeout(() => loginBtn.style.transform = 'scale(1)', 150);
+
+            const email = emailInput.value.trim();
             const password = passwordInput.value;
             const remember = rememberCheckbox.checked;
             
-            if (!username || !password) {
+            if (!email || !password) {
                 showNotification('Por favor completa todos los campos', 'error');
                 return;
             }
             
-            if (!validateUsername(username)) {
-                showNotification('El usuario debe tener al menos 3 caracteres y solo letras, números y guiones bajos', 'error');
-                usernameInput.focus();
+            if (!validateEmail(email)) {
+                showNotification('Por favor ingresa un email válido', 'error');
+                emailInput.focus();
                 return;
             }
             
@@ -178,13 +144,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 passwordInput.focus();
                 return;
             }
-            
+
             loginBtn.disabled = true;
             loginBtn.textContent = 'Iniciando...';
-            
-            setTimeout(() => {
-                const success = handleLogin(username, password, remember);
-                
+
+            setTimeout(async () => {
+                const success = await handleLogin(email, password, remember);
                 if (!success) {
                     loginBtn.disabled = false;
                     loginBtn.textContent = 'Login';
@@ -214,43 +179,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function addKeyboardShortcuts() {
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && (usernameInput === document.activeElement || passwordInput === document.activeElement)) {
-                form.dispatchEvent(new Event('submit'));
-            }
-            
-            if (e.ctrlKey && e.key === 'l') {
-                e.preventDefault();
-                usernameInput.focus();
-                usernameInput.select();
-            }
-        });
-    }
-
-    function checkExistingSession() {
-        const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-        const currentUser = sessionStorage.getItem('currentUser');
-        
-        if (isLoggedIn === 'true' && currentUser) {
-            showNotification(`Ya tienes una sesión activa como ${currentUser}`, 'info');
-            setTimeout(() => {
-                window.location.href = '../hmtl/main.html';
-            }, 2000);
-        }
-    }
-
     function initializeLogin() {
-        checkExistingSession();
         loadRememberedUser();
-        addInputValidation();
         setupFormSubmission();
         setupForgotPassword();
         setupRegisterLink();
-        addKeyboardShortcuts();
-        
-        usernameInput.focus();
-        
+        emailInput.focus();
         showNotification('Sistema de login cargado correctamente', 'success');
     }
 
