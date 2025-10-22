@@ -79,8 +79,8 @@ body {
   width: 100%;
   height: 100%;
   background: radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 60%),
-    radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 60%),
-    radial-gradient(circle at 40% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 60%);
+              radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 60%),
+              radial-gradient(circle at 40% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 60%);
   pointer-events: none;
   z-index: -1;
 }
@@ -135,15 +135,8 @@ header {
 }
 
 @keyframes slideDown {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 .header-container {
@@ -176,15 +169,8 @@ header {
 }
 
 @keyframes flagWave {
-
-  0%,
-  100% {
-    transform: rotate(0deg) scale(1);
-  }
-
-  50% {
-    transform: rotate(2deg) scale(1.05);
-  }
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(2deg) scale(1.05); }
 }
 
 .brand-section h1 {
@@ -430,13 +416,8 @@ nav a:hover {
 }
 
 @keyframes expandWidth {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: 100%;
-  }
+  from { width: 0; }
+  to { width: 100%; }
 }
 
 .hero-subtitle {
@@ -478,15 +459,8 @@ nav a:hover {
 }
 
 @keyframes pulse {
-
-  0%,
-  100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.1);
-  }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 
 .countdown {
@@ -660,7 +634,6 @@ nav a:hover {
     opacity: 0;
     transform: translateY(30px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -706,12 +679,10 @@ nav a:hover {
 }
 
 @keyframes rotate {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
-#hero>* {
+#hero > * {
   max-width: 800px;
   margin: 0 auto;
 }
@@ -752,15 +723,8 @@ nav a:hover {
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Secciones */
@@ -837,8 +801,7 @@ section:not(#hero) {
 }
 
 .course-card {
-  margin-bottom: 2rem;
-  /* espacio entre cartillas */
+  margin-bottom: 2rem; /* espacio entre cartillas */
 }
 
 article {
@@ -1011,8 +974,7 @@ article a:hover {
   border-radius: 2rem;
   text-align: center;
   margin: 2rem 0;
-  padding: 3rem 2rem;
-  /* más aire */
+  padding: 3rem 2rem; /* más aire */
 }
 
 #instructor h2,
@@ -1092,8 +1054,7 @@ article a:hover {
   color: white;
   border-radius: 2rem;
   margin: 2rem 0;
-  padding-bottom: 4rem;
-  /* más espacio abajo */
+  padding-bottom: 4rem; /* más espacio abajo */
 }
 
 #contacto h2 {
@@ -1201,7 +1162,7 @@ footer a {
   section:not(#hero) {
     padding: 3rem 1rem;
   }
-
+  
   #hero {
     padding: 4rem 1rem;
   }
@@ -1210,15 +1171,15 @@ footer a {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-
+  
   article {
     padding: 1.5rem;
   }
-
+  
   #beneficios ul {
     grid-template-columns: 1fr;
   }
-
+  
   nav a {
     display: block;
     margin: 0.25rem 0;
@@ -1231,11 +1192,12 @@ footer a {
     scroll-behavior: smooth;
   }
 
-  feature/formulario-contacto section {
+  feature/formulario-contacto
+  section {
     opacity: 0;
     animation: fadeInSection 0.6s ease-out forwards;
   }
-
+  
   section:nth-child(even) {
     animation-delay: 0.1s;
   }
@@ -1250,7 +1212,6 @@ footer a {
     opacity: 0;
     transform: translateY(20px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1278,9 +1239,7 @@ footer a {
 }
 
 @keyframes spin {
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 /* --- Navbar dinámico --- */
@@ -1294,16 +1253,15 @@ header.nav-only {
   transition: all 0.3s ease;
 }
 
-#cursos>article {
+#cursos > article {
   margin-bottom: 2rem;
 }
-
-#cursos>article:last-child {
+#cursos > article:last-child {
   margin-bottom: 0;
 }
 
 #cursos {
-  padding: 4rem 2rem;
+  padding: 4rem 2rem; 
 }
 
 /* =================================
@@ -1513,9 +1471,7 @@ nav a:hover .nav-icon {
 }
 
 @keyframes growBar {
-  from {
-    height: 0%;
-  }
+  from { height: 0%; }
 }
 
 .bar-label {
@@ -1569,7 +1525,6 @@ nav a:hover .nav-icon {
     opacity: 0;
     transform: translateY(30px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1580,21 +1535,10 @@ nav a:hover .nav-icon {
   animation: fadeInUp 0.6s ease-out;
 }
 
-.metric-card:nth-child(1) {
-  animation-delay: 0.1s;
-}
-
-.metric-card:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.metric-card:nth-child(3) {
-  animation-delay: 0.3s;
-}
-
-.metric-card:nth-child(4) {
-  animation-delay: 0.4s;
-}
+.metric-card:nth-child(1) { animation-delay: 0.1s; }
+.metric-card:nth-child(2) { animation-delay: 0.2s; }
+.metric-card:nth-child(3) { animation-delay: 0.3s; }
+.metric-card:nth-child(4) { animation-delay: 0.4s; }
 
 /* Responsive para dashboard */
 @media (max-width: 768px) {
@@ -1602,17 +1546,17 @@ nav a:hover .nav-icon {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-
+  
   .dashboard-grid {
     grid-template-columns: 1fr;
   }
-
+  
   .metric-card {
     flex-direction: column;
     text-align: center;
     gap: 1rem;
   }
-
+  
   .courses-grid {
     grid-template-columns: 1fr;
   }
@@ -1720,7 +1664,6 @@ nav a:hover .nav-icon {
     transform: scale(0.8);
     opacity: 1;
   }
-
   100% {
     transform: scale(2);
     opacity: 0;
@@ -2046,36 +1989,20 @@ nav a:hover .nav-icon {
   animation: pointPop 0.5s ease-out;
 }
 
-.point:nth-child(1) .point-dot {
-  animation-delay: 1.5s;
-}
-
-.point:nth-child(2) .point-dot {
-  animation-delay: 1.7s;
-}
-
-.point:nth-child(3) .point-dot {
-  animation-delay: 1.9s;
-}
-
-.point:nth-child(4) .point-dot {
-  animation-delay: 2.1s;
-}
-
-.point:nth-child(5) .point-dot {
-  animation-delay: 2.3s;
-}
+.point:nth-child(1) .point-dot { animation-delay: 1.5s; }
+.point:nth-child(2) .point-dot { animation-delay: 1.7s; }
+.point:nth-child(3) .point-dot { animation-delay: 1.9s; }
+.point:nth-child(4) .point-dot { animation-delay: 2.1s; }
+.point:nth-child(5) .point-dot { animation-delay: 2.3s; }
 
 @keyframes pointPop {
   0% {
     transform: scale(0);
     opacity: 0;
   }
-
   50% {
     transform: scale(1.3);
   }
-
   100% {
     transform: scale(1);
     opacity: 1;
@@ -2113,19 +2040,19 @@ nav a:hover .nav-icon {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-
+  
   .stories-grid {
     grid-template-columns: 1fr;
   }
-
+  
   .countdown {
     gap: 1rem;
   }
-
+  
   .time-number {
     font-size: 2rem;
   }
-
+  
   .cta-main {
     font-size: 1rem;
     padding: 1rem 2rem;
@@ -2147,8 +2074,8 @@ nav a:hover .nav-icon {
   transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
+              0 0 0 1px rgba(255, 255, 255, 0.1) inset;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2198,8 +2125,8 @@ nav a:hover .nav-icon {
 [data-theme="dark"] .notification {
   backdrop-filter: blur(25px);
   border: 1px solid rgba(139, 92, 246, 0.3);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(139, 92, 246, 0.2) inset;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 
+              0 0 0 1px rgba(139, 92, 246, 0.2) inset;
 }
 
 [data-theme="dark"] .notification-info {
@@ -2220,7 +2147,6 @@ nav a:hover .nav-icon {
     transform: translateX(100%);
     opacity: 0;
   }
-
   to {
     transform: translateX(0);
     opacity: 1;
@@ -2290,6 +2216,7 @@ nav a:hover .nav-icon {
   color: #e2e8f0 !important;
 }
 
+/* ===== BENEFICIOS EN MODO OSCURO ===== */
 [data-theme="dark"] #beneficios li {
   background: #1a1a1a !important;
   color: #ffffff !important;
@@ -2307,6 +2234,7 @@ nav a:hover .nav-icon {
   stroke: #8b5cf6 !important;
 }
 
+/* ===== FOOTER EN MODO OSCURO ===== */
 [data-theme="dark"] footer {
   background: #1a1a1a !important;
   color: #ffffff !important;
