@@ -1,36 +1,43 @@
 <?php
-include("conexion.php");
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    http_response_code(405);
-    echo json_encode(["success" => false, "message" => "Método no permitido"]);
-    exit;
-}
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+include("conexion.php");
 
-    $id_prospecto = $_POST['id_prospecto'];
-    $nombre = $_POST['nombre'];
-    $apellido = $_POST['apellido'];
-    $correo = $_POST['correo'];
-    $celular = $_POST['celular'];
-
+try {
    
-    $sql = "INSERT INTO prospectos (id_prospecto, nombre, apellido, correo, celular)
-            VALUES (?, ?, ?, ?, ?)";
+    $id_prospecto = $_POST['id_prospecto'] ?? null;
+    $nombre      = $_POST['nombre'] ?? null;
+    $apellido    = $_POST['apellido'] ?? '';
+    $correo      = $_POST['correo'] ?? null;
+    $celular     = $_POST['celular'] ?? null;
 
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssss", $id_prospecto, $nombre, $apellido, $correo, $celular);
-
-    if ($stmt->execute()) {
-        echo json_encode(["success" => true, "message" => "Registro guardado correctamente"]);
-    } else {
-        echo json_encode(["success" => false, "message" => "Error al guardar: " . $stmt->error]);
+    if (!$id_prospecto || !$nombre || !$correo || !$celular) {
+        throw new Exception("Faltan datos requeridos.");
     }
 
-    $stmt->close();
-    $conn->close();
+    
+    $stmt = $conn->prepare("
+        INSERT INTO prospectos (id_prospecto, nombre, apellido, correo, celular, fecha_registro)
+        VALUES (?, ?, ?, ?, ?, NOW())
+    ");
+    $stmt->bind_param("sssss", $id_prospecto, $nombre, $apellido, $correo, $celular);
+    $stmt->execute();
+
+    echo json_encode([
+        'success' => true,
+        'message' => 'Prospecto guardado correctamente'
+    ]);
+
+} catch (Exception $e) {
+    echo json_encode([
+        'success' => false,
+        'message' => $e->getMessage()
+    ]);
 }
+
+$conn->close();
 ?>
+

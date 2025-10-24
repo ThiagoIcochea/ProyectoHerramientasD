@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function fetchAdministradores() {
         try {
-            const response = await fetch("http://localhost/ProyectoHerramientasBackend/ProyectoHerramientasD/backend/obtener_administradores.php");
+            const response = await fetch("https://tiktokperuacademy.com/ProyectoHerramientasD/backend/obtener_administradores.php");
             const data = await response.json();
 
             if (data.status === "success") {

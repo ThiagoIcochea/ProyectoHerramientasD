@@ -1,9 +1,14 @@
 <?php
-$host = getenv('DB_HOST');
-$user = getenv('DB_USER');
-$pass = getenv('DB_PASS');
-$dbname = getenv('DB_NAME');
-$port = getenv('DB_PORT');
+
+$config = include(__DIR__ . '/env.php');
+
+$host = $config['DB_HOST'];
+$user = $config['DB_USER'];
+$pass = $config['DB_PASS'];
+$dbname = $config['DB_NAME'];
+$port = $config['DB_PORT'];
+
+
 
 
 $conn = mysqli_init();
@@ -24,4 +29,5 @@ if (!mysqli_real_connect(
 }
 
 $conn->set_charset("utf8mb4");
+
 ?>

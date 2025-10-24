@@ -1,7 +1,7 @@
 // ===== DASHBOARD JAVASCRIPT =====
 
 function loadProspectos() {
-    fetch('../backend/listar_prospectos.php', {
+    fetch('https://tiktokperuacademy.com/ProyectoHerramientasD/backend/listar_prospectos.php', {
         method: 'GET'
     })
     .then(response => response.json())

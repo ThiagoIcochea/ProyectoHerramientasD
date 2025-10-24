@@ -1,3 +1,3 @@
 node_modules/
-.env
+env.php
 backend/conexion.php

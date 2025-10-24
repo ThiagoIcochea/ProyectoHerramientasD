@@ -241,7 +241,7 @@ function initFormValidation() {
     };
 
 
- fetch("../backend/guardar_prospecto.php", {
+ fetch("https://tiktokperuacademy.com/ProyectoHerramientasD/backend/guardar_prospecto.php", {
   method: "POST",
   headers: { "Content-Type": "application/x-www-form-urlencoded" },
   body: new URLSearchParams({
